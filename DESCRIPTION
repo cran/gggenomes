@@ -1,6 +1,6 @@
 Package: gggenomes
 Title: A Grammar of Graphics for Comparative Genomics
-Version: 1.0.0
+Version: 1.0.1
 Authors@R: c(
   person("Thomas", "Hackl", email = "t.hackl@rug.nl", role = c("aut", "cre")),
   person("Markus J.", "Ankenbrand", email = "iimog@iimog.org", role = c("aut")),
@@ -24,11 +24,11 @@ Imports: vctrs, rlang, dplyr, tidyr, readr (>= 2.0.0), purrr, tibble,
         tidyselect, colorspace, methods, utils, ellipsis
 Suggests: testthat, ggtree, patchwork, Hmisc, knitr, ggrepel, IRanges,
 NeedsCompilation: no
-Packaged: 2024-06-27 07:06:49 UTC; iimog
+Packaged: 2024-08-30 11:05:40 UTC; thackl
 Author: Thomas Hackl [aut, cre],
   Markus J. Ankenbrand [aut],
   Bart van Adrichem [aut],
   Kristina Haslinger [ctb, sad]
 Maintainer: Thomas Hackl <t.hackl@rug.nl>
 Repository: CRAN
-Date/Publication: 2024-06-28 09:30:06 UTC
+Date/Publication: 2024-08-30 11:40:02 UTC

@@ -1,4 +1,4 @@
-66f8f610a90db4b8091089f5ac410ba6 *DESCRIPTION
+b1c9a5a9ee6c746b38994f823f2d00e8 *DESCRIPTION
 9dd18eb5bcc8f469d4fd716e88932116 *LICENSE
 62e4079d549c313ac73f3681ee253e9e *NAMESPACE
 efe5fe14fa629e97114c43f9527a900b *R/aaa.R
@@ -51,9 +51,9 @@ b34ede96fe15de003a36d57685f8c3c2 *R/shift.R
 7122c7587c99c10cf03ead599f5b1301 *R/variant_scales.R
 bbf69eaacbdf4162ff8f96087421dcc5 *R/vars.R
 5ec1ed5489761c1a4a4735dcad0496d5 *R/write.R
-64a8250bd4608ea4ca64d206321c18c9 *README.md
-aa5e5a2cbfaea3d9b6cdbe378ac48cee *build/partial.rdb
-4520c5d4412b85f80482cc346a5017bb *build/vignette.rds
+ad1a295894a392e224e00a75c7a994d7 *README.md
+20c8d3f97d93e2e318a22508275b5a02 *build/partial.rdb
+f98d6e822e53c7f128c6e16052c8946b *build/vignette.rds
 c526fdbd157ffcc708f3cc6abc6ee32b *data/emale_ava.rda
 893e7b06ad2a847971969303995f232b *data/emale_cogs.rda
 35fb40ef3f1efdc18de22aee6c1e153d *data/emale_gc.rda
@@ -66,13 +66,13 @@ e3f004ef1590b79d8e5e2a85dfce4be6 *exec/gb2gff
 0130c63420b27c03bb6becc3b6ecda96 *exec/seq-len
 c9d4aace0454c709a2885ecb4abd1986 *inst/doc/emales.R
 ac0bba34335bb12119b6b1b8a641440f *inst/doc/emales.Rmd
-0fcf42cae920ebfe265b52b020f0bd9c *inst/doc/emales.html
+1aae719653f59ed70c554cf89272ae37 *inst/doc/emales.html
 09e0a6a659287eb9b5cdec4247edf89b *inst/doc/flip.R
 74545a24b6ead95590f87595c5f914aa *inst/doc/flip.Rmd
-5bde77bf2f152baecbe85a7326c7b0da *inst/doc/flip.html
-7a17f61c61d959133aa41d9fc60a7b62 *inst/doc/gggenomes.R
-8d438ad5c334497533f308dd8f506858 *inst/doc/gggenomes.Rmd
-22c912af4a3a4e41d0c89c4c7c834b35 *inst/doc/gggenomes.pdf
+8c3e0a86d74e06f42796ba2ee500cca5 *inst/doc/flip.html
+6bacedda3035fcdebed0ee57e6b4f8b0 *inst/doc/gggenomes.R
+f140cf6865734b6abb3fb7fd8224184e *inst/doc/gggenomes.Rmd
+d19fa469c1ab3af70dcfc1d1265e71df *inst/doc/gggenomes.pdf
 481782a61740ec51cd7159f27caa33ed *inst/extdata/cafeteria/CrBVI.fa.fai
 68f50f5aa60234b3de29e42eb0c61cdc *inst/extdata/cafeteria/CrCflag.fa.fai
 ea59d43b96e7350f47ad693dc092ebc8 *inst/extdata/cafeteria/CrE410P.fa.fai
@@ -188,7 +188,6 @@ c815f3e81b3dfdb86c9e1d5c749cf79d *man/write_gff3.Rd
 95b515c48c51d57f69dea1c184a72e36 *tests/data/seq-len/sequence.fasta
 bfa6392e3bf788db87cb91952a5ca314 *tests/data/seq-len/sequence.gb
 6f8308f47bbfae920de62ad388441c4d *tests/data/seq-len/sequence.gff3
-d7cb5e35966d386ce5b90132091e3323 *tests/find_missing.R
 7c6113da9bb00163a333470fd0530e84 *tests/testthat.R
 d59199aa6ac37440c7408b978b75c1e7 *tests/testthat/test-read_seq_len.R
 4e6173e5f38443c2d44f3dfa8dda51f1 *tests/testthat/test_vars.R
@@ -201,4 +200,4 @@ b37dd7828626559e5e3491dca537142d *vignettes/emales/emales-p1.png
 a49dbcc3a9ee109d5954f75f240397d1 *vignettes/emales/emales-p6.png
 3225fea9335338a3559949358471db10 *vignettes/emales/emales-p7.png
 74545a24b6ead95590f87595c5f914aa *vignettes/flip.Rmd
-8d438ad5c334497533f308dd8f506858 *vignettes/gggenomes.Rmd
+f140cf6865734b6abb3fb7fd8224184e *vignettes/gggenomes.Rmd
