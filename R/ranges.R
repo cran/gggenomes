@@ -2,7 +2,7 @@
 #'
 #' @param x a numeric vector of values
 #' @param left,right boundary values or vectors of same length as x
-#' @param closed wether to include (`TRUE`) or exclude (`FALSE`) the
+#' @param closed whether to include (`TRUE`) or exclude (`FALSE`) the
 #' endpoints. Provide 2 values for different behaviors for lower and upper
 #' boundary, e.g. `c(TRUE, FALSE)` to include only the lower boundary.
 #' @return a logical vector of the same length as the input
@@ -75,5 +75,5 @@ max_width <- function(..., base = 1) {
 
 #' @export
 as_tibble.GRanges <- function(x, ...) {
-  select(as_tibble(as.data.frame(x), ...), seq_id = .data$seqnames, .data$start, .data$end, .data$strand, everything())
+  select(as_tibble(as.data.frame(x), ...), seq_id = "seqnames", "start", "end", "strand", everything())
 }

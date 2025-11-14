@@ -17,7 +17,7 @@
 #'   length = c(1e4, 6e3, 2e3, 1e3, 3e3, 3e3, 3e3)
 #' )
 #'
-#' p <- gggenomes(seqs = s0) + geom_seq(aes(color = bin_id), size = 3) +
+#' p <- gggenomes(seqs = s0) + geom_seq(aes(color = bin_id), linewidth = 3) +
 #'   geom_bin_label() + geom_seq_label() +
 #'   expand_limits(color = c("A", "B", "C"))
 #' p
@@ -42,6 +42,8 @@
 #'
 #' # same w/o scope, unaffected bins remain as is
 #' p %>% pick_seqs_within(b3, b2, b1)
+#'
+#' try({ # can fail on older systems with older ggtree versions
 #'
 #' # Align sequences with and plot next to a phylogenetic tree
 #' library(patchwork) # arrange multiple plots
@@ -71,17 +73,17 @@
 #'   geom_seq() + geom_seq() + geom_bin_label()
 #' t + p %>% pick_by_tree(t) + plot_layout(widths = c(1, 5))
 #'
-#' try({
-#'   # no shared ids will cause an error
-#'   p <- gggenomes(seqs = tibble::tibble(seq_id = "foo", length = 1)) +
-#'     geom_seq() + geom_seq() + geom_bin_label()
-#'   t + p %>% pick_by_tree(t) + plot_layout(widths = c(1, 5))
+#' # no shared ids will cause an error
+#' p <- gggenomes(seqs = tibble::tibble(seq_id = "foo", length = 1)) +
+#'   geom_seq() + geom_seq() + geom_bin_label()
+#' t + p %>% pick_by_tree(t) + plot_layout(widths = c(1, 5))
 #'
-#'   # extra leafs in tree will cause an error
-#'   emale_seqs_fewer <- slice_head(emale_seqs, n = 4)
-#'   p <- gggenomes(seqs = emale_seqs_fewer, genes = emale_genes) +
-#'     geom_seq() + geom_seq() + geom_bin_label()
-#'   t + p %>% pick_by_tree(t) + plot_layout(widths = c(1, 5))
+#' # extra leafs in tree will cause an error
+#' emale_seqs_fewer <- slice_head(emale_seqs, n = 4)
+#' p <- gggenomes(seqs = emale_seqs_fewer, genes = emale_genes) +
+#'   geom_seq() + geom_seq() + geom_bin_label()
+#' t + p %>% pick_by_tree(t) + plot_layout(widths = c(1, 5))
+#'
 #' })
 #'
 #' @describeIn pick pick bins by bin_id, positional argument (start at top)
@@ -91,7 +93,7 @@
 #' @return gggenomes object with selected bins and seqs.
 #' @export
 pick <- function(x, ...) {
-  if (!has_dots()) {
+  if (...length() == 0) {
     return(x)
   }
   pick_impl(x, .bins = c(...))
@@ -104,7 +106,7 @@ pick <- function(x, ...) {
 #' @return gggenomes object with selected seqs.
 #' @export
 pick_seqs <- function(x, ..., .bins = everything()) {
-  if (!has_dots()) {
+  if (...length() == 0) {
     return(x)
   }
   pick_impl(x, ..., .bins = {{ .bins }}, .seqs_within = FALSE)
@@ -117,7 +119,7 @@ pick_seqs <- function(x, ..., .bins = everything()) {
 #' @return gggenomes object with selected seqs.
 #' @export
 pick_seqs_within <- function(x, ..., .bins = everything()) {
-  if (!has_dots()) {
+  if (...length() == 0) {
     return(x)
   }
   pick_impl(x, ..., .bins = {{ .bins }}, .seqs_within = TRUE)
@@ -138,7 +140,7 @@ pick_by_tree <- function(x, tree, infer_bin_id = .data$label) {
     filter(.data$isTip) %>%
     arrange(-.data$y) %>%
     transmute(bin_id = {{ infer_bin_id }}) %>%
-    pull(.data$bin_id)
+    pull("bin_id")
 
   # check ID matches
   bin_ids <- get_seqs(x)$bin_id
@@ -188,7 +190,7 @@ pick_impl <- function(x, ..., .bins = everything(), .seqs_within = FALSE) {
   s <- bind_rows(l[i])
 
   # pick seqs from bins
-  if (has_dots()) {
+  if (...length() > 0) {
     seq_ids <- s$seq_id %>% set_names(.)
     j <- tidyselect::eval_select(expr(c(...)), seq_ids)
     s <- s[j, ]

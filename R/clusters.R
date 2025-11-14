@@ -17,7 +17,7 @@
 #'   geom_gene(aes(fill = ifelse(is.na(cluster_id), NA,
 #'     stringr::str_glue("{cluster_id} [{cluster_size}]")
 #'   ))) +
-#'   scale_fill_discrete("COGs")
+#'   scale_fill_discrete(name="COGs")
 #'
 add_clusters <- function(x, ..., .track_id = "genes") {
   UseMethod("add_clusters")
@@ -32,7 +32,7 @@ add_clusters.gggenomes <- function(x, ..., .track_id = "genes") {
 #' @importFrom rlang .data
 #' @export
 add_clusters.gggenomes_layout <- function(x, ..., .track_id = "genes") {
-  if (!has_dots()) {
+  if (...length() == 0) {
     warn("No clusters data provided - check your arguments")
     return(x)
   }

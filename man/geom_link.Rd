@@ -2,6 +2,7 @@
 % Please edit documentation in R/geom_link.R
 \name{geom_link}
 \alias{geom_link}
+\alias{geom_link_curved}
 \alias{geom_link_line}
 \title{Draw links between genomes}
 \usage{
@@ -14,6 +15,20 @@ geom_link(
   show.legend = NA,
   inherit.aes = TRUE,
   offset = 0.15,
+  curve = NA,
+  ...
+)
+
+geom_link_curved(
+  mapping = NULL,
+  data = links(),
+  stat = "identity",
+  position = "identity",
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE,
+  offset = 0.15,
+  curve = 10,
   ...
 )
 
@@ -51,7 +66,7 @@ from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
 \item{stat}{The statistical transformation to use on the data for this layer.
 When using a \verb{geom_*()} function to construct a layer, the \code{stat}
-argument can be used the override the default coupling between geoms and
+argument can be used to override the default coupling between geoms and
 stats. The \code{stat} argument accepts the following:
 \itemize{
 \item A \code{Stat} ggproto subclass, for example \code{StatCount}.
@@ -82,15 +97,21 @@ a warning. If \code{TRUE}, missing values are silently removed.}
 \code{NA}, the default, includes if any aesthetics are mapped.
 \code{FALSE} never includes, and \code{TRUE} always includes.
 It can also be a named logical vector to finely select the aesthetics to
-display.}
+display. To include legend keys for all levels, even
+when no data exists, use \code{TRUE}.  If \code{NA}, all levels are shown in legend,
+but unobserved levels are omitted.}
 
 \item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. \code{\link[ggplot2:borders]{borders()}}.}
+the default plot specification, e.g. \code{\link[ggplot2:annotation_borders]{annotation_borders()}}.}
 
 \item{offset}{distance between seq center and link start. Use two values
 \verb{c(<offset_top>, <offset_bottom>)} for different top and bottom offsets}
+
+\item{curve}{curvature of the link. If \code{NA} or \code{0}, the link edges will be
+straight. For curved links, higher values lead to stronger curvature.
+Typical values are between \code{5} and \code{15}.}
 
 \item{...}{Other arguments passed on to \code{\link[ggplot2:layer]{layer()}}'s \code{params} argument. These
 arguments broadly fall into one of 4 categories below. Notably, further
@@ -122,11 +143,16 @@ lists which parameters it can accept.
 }
 \value{
 A ggplot2 layer with links.
+
+A ggplot2 layer with links.
+
+A ggplot2 layer with links.
 }
 \description{
-Draws connections between genomes, such as genome/gene/protein
-alignments and gene/protein clusters. \code{geom_link()} draws links as filled
-polygons, \code{geom_link_line()} draws a single connecting line.
+Draw connections between genomes, such as genome/gene/protein
+alignments and gene/protein clusters. \code{geom_link()} and
+\code{geom_link_curved()} create filled polygons between regions,
+\code{geom_link_line()} a single connecting line.
 
 Note that by default only links between adjacent genomes are computed and
 shown. To compute and show all links between all genomes, set
@@ -161,16 +187,18 @@ p4 <- gggenomes(links = emale_ava, adjacent_only = FALSE) + geom_link()
 
 library(patchwork) # combine plots in one figure
 p1 + p2 + p3 + p4 + plot_layout(nrow = 1)
+
 q0 <- gggenomes(emale_genes, emale_seqs) |>
   add_clusters(emale_cogs) +
   geom_seq() + geom_gene()
 
+qq <- 
 # link gene clusters with polygon
-q1 <- q0 + geom_link(aes(fill = cluster_id))
-
+q0 + geom_link(aes(fill = cluster_id)) +
+# link with curved polygons (bezier-like)
+q0 + geom_link_curved(aes(fill = cluster_id)) +
 # link gene clusters with lines
-q2 <- q0 + geom_link_line(aes(color = cluster_id))
+q0 + geom_link_line(aes(color = cluster_id))
 
-q1 + q2 + plot_layout(nrow = 1, guides = "collect")
-
+qq + plot_layout(nrow = 1, guides = "collect")
 }

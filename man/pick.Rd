@@ -69,7 +69,7 @@ s0 <- tibble::tibble(
   length = c(1e4, 6e3, 2e3, 1e3, 3e3, 3e3, 3e3)
 )
 
-p <- gggenomes(seqs = s0) + geom_seq(aes(color = bin_id), size = 3) +
+p <- gggenomes(seqs = s0) + geom_seq(aes(color = bin_id), linewidth = 3) +
   geom_bin_label() + geom_seq_label() +
   expand_limits(color = c("A", "B", "C"))
 p
@@ -94,6 +94,8 @@ p \%>\% pick_seqs_within(3:1, .bins = B)
 
 # same w/o scope, unaffected bins remain as is
 p \%>\% pick_seqs_within(b3, b2, b1)
+
+try({ # can fail on older systems with older ggtree versions
 
 # Align sequences with and plot next to a phylogenetic tree
 library(patchwork) # arrange multiple plots
@@ -123,17 +125,17 @@ p <- gggenomes(seqs = emale_seqs_more, genes = emale_genes) +
   geom_seq() + geom_seq() + geom_bin_label()
 t + p \%>\% pick_by_tree(t) + plot_layout(widths = c(1, 5))
 
-try({
-  # no shared ids will cause an error
-  p <- gggenomes(seqs = tibble::tibble(seq_id = "foo", length = 1)) +
-    geom_seq() + geom_seq() + geom_bin_label()
-  t + p \%>\% pick_by_tree(t) + plot_layout(widths = c(1, 5))
+# no shared ids will cause an error
+p <- gggenomes(seqs = tibble::tibble(seq_id = "foo", length = 1)) +
+  geom_seq() + geom_seq() + geom_bin_label()
+t + p \%>\% pick_by_tree(t) + plot_layout(widths = c(1, 5))
 
-  # extra leafs in tree will cause an error
-  emale_seqs_fewer <- slice_head(emale_seqs, n = 4)
-  p <- gggenomes(seqs = emale_seqs_fewer, genes = emale_genes) +
-    geom_seq() + geom_seq() + geom_bin_label()
-  t + p \%>\% pick_by_tree(t) + plot_layout(widths = c(1, 5))
+# extra leafs in tree will cause an error
+emale_seqs_fewer <- slice_head(emale_seqs, n = 4)
+p <- gggenomes(seqs = emale_seqs_fewer, genes = emale_genes) +
+  geom_seq() + geom_seq() + geom_bin_label()
+t + p \%>\% pick_by_tree(t) + plot_layout(widths = c(1, 5))
+
 })
 
 }

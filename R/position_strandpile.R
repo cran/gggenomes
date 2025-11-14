@@ -139,7 +139,7 @@ PositionStrandpile <- ggproto("PositionStrandpile", Position,
           ifelse(is_reverse, -1, 1)) %>%
         dplyr::ungroup()
 
-      data <- left_join(data, select(data_grouped, y, group, yoff), by = c("y", "group"))
+      data <- left_join(data, select(data_grouped, "y", "group", "yoff"), by = c("y", "group"))
     } else {
       data <- data %>%
         dplyr::mutate(
@@ -179,6 +179,12 @@ PositionSixframe <- ggproto("PositionSixframe", PositionStrand, framewise = TRUE
 
 
 stack_pos <- function(start, end, gap = 0) {
+  # this is a fallback primarily to pass tests in r-devel where IRanges is not always available
+  if (!requireNamespace("IRanges", quietly = TRUE)) {
+    warn("Bioconductor IRanges required for stacking features. Defaulting to no stacking")
+    gap <- NA
+  }
+
   if (!is.na(gap)) {
     end <- end + gap
     i <- end < start # set negtive width feats to zero width
